@@ -1,4 +1,5 @@
-const inquirer = require('require');
+const inquirer = require('inquirer');
+const fs = require('fs');
 const shapes = require ('./lib/shapes.js');
 
 const questions = [{
@@ -15,14 +16,19 @@ const questions = [{
     name: 'shape',
     message: 'What shape would you like to use?',
     choices: ['Square', 'Circle', 'Triangle']
-}]
+}];
 
 function init() {
     inquirer.prompt(questions)
     .then((data) => {
-        console.log(data)
+        console.log(data);
+        writeToFile(data);
     })
 };
 
+function writeToFile(data) {
+    fs.writeFile("logo.svg", generateSvg(data, null, '\t'), (err) =>
+        err ? console.log(err) : console.log('generated logo.svg'))   
+};
 
 init();
