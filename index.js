@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const shapes = require ('./lib/shapes.js');
+const Triangle = require ('./lib/shapes.js');
+const Square = require('./lib/shapes.js');
+const Circle = require('./lib/shapes.js');
 
 const questions = [{
     type: 'input',
@@ -12,7 +14,7 @@ const questions = [{
     message: 'What color would you like the text?',
 },
     {
-    type: 'input',
+    type: 'checkbox',
     name: 'shape',
     message: 'What shape would you like to use?',
     choices: ['Square', 'Circle', 'Triangle']
@@ -21,8 +23,9 @@ const questions = [{
 function init() {
     inquirer.prompt(questions)
     .then((data) => {
-        console.log(data);
+        console.log('generated logo.svg', data);
         writeToFile(data);
+        
     })
 };
 
