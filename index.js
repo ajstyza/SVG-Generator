@@ -24,14 +24,17 @@ function init() {
     inquirer.prompt(questions)
     .then((data) => {
         console.log('generated logo.svg', data);
-        writeToFile(data);
+        let shape = new Square(data);
+        
+        shape.render();
+        // writeToFile(data);
         
     })
 };
 
-function writeToFile(data) {
-    fs.writeFile("logo.svg", generateSvg(data, null, '\t'), (err) =>
-        err ? console.log(err) : console.log('generated logo.svg'))   
-};
+// function writeToFile(data) {
+//     fs.writeFile("logo.svg", generateSvg(data, null, '\t'), (err) =>
+//         err ? console.log(err) : console.log('generated logo.svg'))   
+// };
 
 init();
