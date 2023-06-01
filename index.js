@@ -28,19 +28,22 @@ function init() {
         let shape;
         
         if(data.shape[0] == 'Square'){
-            shape = new Square()
+            shape = new Square('Square')
+            shape.prototype.add('Square')
         }
         else if(data.shape[1] == 'Circle') {
         shape = new Circle() 
+        shape.prototype.add('Circle')
         }
         
         else(data.shape[2] == 'Triangle') 
             shape = new Triangle()
-            console.log(shape);
+            shape.prototype.add('Triangle');
     })
-        .then((data) => {
-            if(data.textColor == 'green' || '#00FF00'){ // is this how to add text color
-                
+        .then((shape) => {
+        let textColor;
+            if(data.textColor == 'green' || '#00FF00'){ // is this how to add text color?
+                shape.prototype.add('green');
             }
         })
         // writeToFile(data);     
