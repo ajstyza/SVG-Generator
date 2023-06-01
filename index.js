@@ -24,17 +24,31 @@ function init() {
     inquirer.prompt(questions)
     .then((data) => {
         console.log('generated logo.svg', data);
-        let shape = new Square(data);
+        writeToFile(data);
+        let shape;
         
-        shape.render();
-        // writeToFile(data);
+        if(data.shape[0] == 'Square'){
+            shape = new Square()
+        }
+        else if(data.shape[1] == 'Circle') {
+        shape = new Circle() 
+        }
         
+        else(data.shape[2] == 'Triangle') 
+            shape = new Triangle()
+            console.log(shape);
     })
-};
-
-// function writeToFile(data) {
-//     fs.writeFile("logo.svg", generateSvg(data, null, '\t'), (err) =>
+        .then((data) => {
+            if(data.textColor == 'green' || '#00FF00'){ // is this how to add text color
+                
+            }
+        })
+        // writeToFile(data);     
+        // console.log(shape);
+// function writeToFile(shape) {
+//     fs.writeFile("logo.svg", generateSvg(shape, null, '\t'), (err) =>
 //         err ? console.log(err) : console.log('generated logo.svg'))   
-// };
+}
+;
 
 init();
