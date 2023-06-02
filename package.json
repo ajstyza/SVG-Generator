@@ -22,5 +22,8 @@
   "homepage": "https://github.com/ajstyza/SVG-Generator#readme",
   "devDependencies": {
     "jest": "^29.5.0"
+  },
+  "dependencies": {
+    "fs.promises": "^0.1.2"
   }
 }

@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
-const { readFile, writeFile } = require('fs/promises');
+// const { readFile, writeFile } = require('fs/promises');
 const fs = require('fs');
-const Triangle = require ('./lib/shapes.js');
+const Triangle = require('./lib/shapes.js');
 const Square = require('./lib/shapes.js');
 const Circle = require('./lib/shapes.js');
 
@@ -23,28 +23,29 @@ const questions = [{
 
 function init() {
     return inquirer.prompt(questions)
-    .then((data) => {
-        
+    .then((res) => {
+        var data = JSON.stringify(res);
         // writeToFile(data);
-        let shape = JSON.parse(data);
+        let shape;
         
-        if(data.shape[0] == 'Square'){
+        if(data.shape == 'Square'){
             shape = new Square()
             
         }
-        else if(data.shape[1] == 'Circle') {
+        else if(data.shape == 'Circle') {
         shape = new Circle() 
         }
         
-        else(data.shape[2] == 'Triangle') 
+        else(data.shape == 'Triangle') 
             shape = new Triangle()        
     })
     .then((shape) => {
-        return writeFile('logo.svg', shape)
+        return fs.writeFile('.svg', shape, null, (err) =>
+            err ? console.error(err) : console.log('generated logo.svg'))
     })
-    .then(() => {
-        console.log('generated logo.svg');
-    })
+    // .then(() => {
+    //     console.log('generated logo.svg');
+    // })
             
 
         // })
