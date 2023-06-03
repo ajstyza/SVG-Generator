@@ -1,11 +1,11 @@
 const inquirer = require('inquirer');
 // const { readFile, writeFile } = require('fs/promises');
 const fs = require('fs');
-const Triangle = require('./lib/shapes.js');
-const Square = require('./lib/shapes.js');
-const Circle = require('./lib/shapes.js');
-const SVG = require('./lib/shapes.js');
-// var userShape;
+const Triangle = require('./lib/triangle.js');
+const Square = require('./lib/square.js');
+const Circle = require('./lib/circle.js');
+// const SVG = require('./lib/svg.js');
+var userShape;
 
 const questions = [{
     type: 'input',
@@ -27,36 +27,41 @@ const questions = [{
 function init() {
     return inquirer.prompt(questions)
         .then((res) => {
-            // var userShape = JSON.parse(res);
             console.log(res);
             
             if (res.shape == 'Square') {
                userShape = new Square()
-                
+          
+
             }
             else if (res.shape == 'Circle') {
                 userShape = new Circle()
-                // console.log(userShape)
+               
             }
-            if (res.shape == 'Triangle')
+            if (res.shape == 'Triangle') {
                 userShape = new Triangle()
+            }
 
+            return fs.writeFile('logo.svg', userShape, (err) =>
+            err ? console.error(err) : console.log('generated logo.svg'))
+           
         })
-        .then((userShape) => {
+        // .then((userShape) => {
 
-        //         console.log(userShape)
-            // const svg = new SVG(svg.userShape, svg.colorOfShape, svg.colorOftext, svg.text);
-            // console.log('this is the SVG', svg)
+        // //         console.log(userShape)
+        //     // const svg = new SVG(svg.userShape, svg.colorOfShape, svg.colorOftext, svg.text);
+        //     // console.log('this is the SVG', svg)
 
-            // svg.setShape(userShape);
-            // svg.setText(text, colorOftext);
-            // svg.render(svg);
-
-            return fs.writeFile('logo.svg', userShape.render());
-        })
-        .then(() => {
-            console.log('logo.svg generated');
-        })
+        //     // svg.setShape(userShape);
+        //     // svg.setText(text, colorOftext);
+        //     // svg.render(svg);
+            
+            
+           
+        // })
+        // .then(() => {
+        //     console.log('logo.svg generated');
+        // })
         // return fs.writeFile('logo.svg', userShape, null, (err) =>
         //     err ? console.error(err) : console.log('generated logo.svg'))
     //         })
