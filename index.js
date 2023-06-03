@@ -4,8 +4,15 @@ const fs = require('fs');
 const Triangle = require('./lib/triangle.js');
 const Square = require('./lib/square.js');
 const Circle = require('./lib/circle.js');
-// const SVG = require('./lib/svg.js');
+const SVG = require('./lib/svg.js');
 var userShape;
+
+// const svg = new SVG (svg.userShape, svg.colorOfShape, svg.colorOftext, svg.text);
+// // console.log('this is the SVG', svg)
+
+// svg.setShape(userShape);
+// svg.setText(text, colorOftext);
+// svg.render(svg);
 
 const questions = [{
     type: 'input',
@@ -27,34 +34,29 @@ const questions = [{
 function init() {
     return inquirer.prompt(questions)
         .then((res) => {
-            console.log(res);
+            // userShape = JSON.parse(res)
             
             if (res.shape == 'Square') {
                userShape = new Square()
-          
 
             }
             else if (res.shape == 'Circle') {
                 userShape = new Circle()
-               
-            }
-            if (res.shape == 'Triangle') {
-                userShape = new Triangle()
-            }
 
-            return fs.writeFile('logo.svg', userShape, (err) =>
-            err ? console.error(err) : console.log('generated logo.svg'))
+            }
+            else (res.shape == 'Triangle') 
+                userShape = new Triangle()
+        
+                
+
+            return fs.writeFile('logo.svg', JSON.stringify(userShape, null, '\t'), (err) =>
+            err ? console.log(err) : console.log('logo.svg generated'))  
+            
            
         })
         // .then((userShape) => {
 
         // //         console.log(userShape)
-        //     // const svg = new SVG(svg.userShape, svg.colorOfShape, svg.colorOftext, svg.text);
-        //     // console.log('this is the SVG', svg)
-
-        //     // svg.setShape(userShape);
-        //     // svg.setText(text, colorOftext);
-        //     // svg.render(svg);
             
             
            
