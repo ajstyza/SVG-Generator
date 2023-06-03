@@ -1,9 +1,11 @@
 const inquirer = require('inquirer');
-// const { readFile, writeFile } = require('fs/promises');
+const {readFile, writeFile } = require('fs/promises');
 const fs = require('fs');
 const Triangle = require('./lib/shapes.js');
 const Square = require('./lib/shapes.js');
 const Circle = require('./lib/shapes.js');
+const SVG = require('./lib/shapes.js');
+var userShape;
 
 const questions = [{
     type: 'input',
@@ -15,7 +17,7 @@ const questions = [{
     message: 'What color would you like the text?',
 },
     {
-    type: 'checkbox',
+    type: 'list',
     name: 'shape',
     message: 'What shape would you like to use?',
     choices: ['Square', 'Circle', 'Triangle']
@@ -24,35 +26,50 @@ const questions = [{
 function init() {
     return inquirer.prompt(questions)
     .then((res) => {
-        var data = JSON.stringify(res);
-        // writeToFile(data);
-        let shape;
-        
-        if(data.shape == 'Square'){
-            shape = new Square()
-            
+
+        if(res.shape == 'Square'){
+            userShape = new Square()
+            console.log(userShape)
         }
-        else if(data.shape == 'Circle') {
-        shape = new Circle() 
+        else if(res.shape == 'Circle') {
+        userShape = new Circle() 
         }
         
-        else(data.shape == 'Triangle') 
-            shape = new Triangle()        
+        else(res.shape == 'Triangle') 
+            userShape = new Triangle()  
     })
-    .then((shape) => {
-        return fs.writeFile('.svg', shape, null, (err) =>
-            err ? console.error(err) : console.log('generated logo.svg'))
+    .then((userShape) => {
+
+
+        const svg = new SVG {
+            svg.userShape,
+            svg.colorOfShape, 
+            svg.colorOftext,
+            svg.text
+        };
+
+
+        svg.setShape(userShape);
+       svg.setText(text, colorOfText);
+       svg.render(svg);
+      return writeFile(svg, render());
     })
+    .then(() => {
+        console.log('logo.svg generated');
+    })
+    // return fs.writeFile('logo.svg', userShape, null, (err) =>
+    //     err ? console.error(err) : console.log('generated logo.svg'))
+    const svg = new SVG()
     // .then(() => {
     //     console.log('generated logo.svg');
     // })
-            
-
+        
         // })
         // writeToFile(data);     
         // console.log(shape);
 // function writeToFile(shape) {
 //     fs.writeFile("logo.svg", generateSvg(shape, null, '\t'), (err) =>
 //         err ? console.log(err) : console.log('generated logo.svg'))   
+
 };
 init();
