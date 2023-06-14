@@ -4,15 +4,10 @@ const fs = require('fs');
 const Triangle = require('./lib/triangle.js');
 const Square = require('./lib/square.js');
 const Circle = require('./lib/circle.js');
-const SVG = require('./lib/svg.js');
+// const SVG = require('./lib/svg.js');
 var userShape;
 
-// const svg = new SVG (svg.userShape, svg.colorOfShape, svg.colorOftext, svg.text);
-// // console.log('this is the SVG', svg)
 
-// svg.setShape(userShape);
-// svg.setText(text, colorOftext);
-// svg.render(svg);
 
 const questions = [{
     type: 'input',
@@ -34,44 +29,20 @@ const questions = [{
 function init() {
     return inquirer.prompt(questions)
         .then((res) => {
-            // userShape = JSON.parse(res)
             
-            if (res.shape == 'Square') {
+            if (res.shape === 'Square') {
                userShape = new Square()
 
             }
-            else if (res.shape == 'Circle') {
+            else if (res.shape === 'Circle') {
                 userShape = new Circle()
 
             }
-            else (res.shape == 'Triangle') 
-                userShape = new Triangle()
-        
-                
-
-            return fs.writeFile('logo.svg', JSON.stringify(userShape, null, '\t'), (err) =>
+            else userShape = new Triangle() 
+                        
+            return fs.writeFile('logo.svg', userShape.render(), (err) =>
             err ? console.log(err) : console.log('logo.svg generated'))  
-            
-           
-        })
-        // .then((userShape) => {
-
-        // //         console.log(userShape)
-            
-            
-           
-        // })
-        // .then(() => {
-        //     console.log('logo.svg generated');
-        // })
-        // return fs.writeFile('logo.svg', userShape, null, (err) =>
-        //     err ? console.error(err) : console.log('generated logo.svg'))
-    //         })
-    //         writeToFile(data);     
-    //         console.log(shape);
-    // function writeToFile(shape) {
-    //     fs.writeFile("logo.svg", generateSvg(shape, null, '\t'), (err) =>
-    //         err ? console.log(err) : console.log('generated logo.svg'))   
+        }) 
 
 };
 init();
