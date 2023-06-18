@@ -1,10 +1,8 @@
 const inquirer = require('inquirer');
-// const { readFile, writeFile } = require('fs/promises');
 const fs = require('fs');
 const Triangle = require('./lib/triangle.js');
 const Square = require('./lib/square.js');
 const Circle = require('./lib/circle.js');
-// const SVG = require('./lib/svg.js');
 var userShape;
 
 
